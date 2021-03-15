@@ -32,16 +32,7 @@ export default function AddTask(props) {
 	}
 
     return (
-        <div>
-            {/* <Typography variant="h5" align="left">Adicionar Task</Typography>
-            <TextField color="primary" variant="outlined" {...props} />
-            
-            <TextField color="primary" variant="outlined" {...props} />
-            
-            <Button style={{marginTop:'10px'}} type="submit" variant="contained" color="primary">
-                +
-            </Button> */}
-
+		<Container component="section" maxWidth="xl">
             <Formik initialValues={formik.initialValues}
 					onSubmit={(filtro, { setSubmitting, resetForm }) => {
 						setSubmitting(true)
@@ -53,26 +44,27 @@ export default function AddTask(props) {
 					}}>
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
 						return (
-							<form noValidate onSubmit={handleSubmit}>
-								<TextField required autoFocus margin="normal" id="nome"
-									label="Nome" name="nome" value={values.nome}
-									onChange={handleChange} onBlur={handleBlur}
-									error={touched.nome && errors.nome} />
+							<Container>
+								<form noValidate onSubmit={handleSubmit}>
+									<TextField fullWidth required autoFocus margin="normal" id="nome"
+										label="Nome" name="nome" value={values.nome}
+										onChange={handleChange} onBlur={handleBlur}
+										error={touched.nome && errors.nome} />
 
-								<TextField required id="descricao" margin="normal"
-									label="Descricao" name="descricao" 
-									value={values.descricao}
-									onChange={handleChange} onBlur={handleBlur} 
-                                    error={touched.descricao && errors.descricao}/>
+									<TextField fullWidth required id="descricao" margin="normal"
+										label="Descricao" name="descricao" 
+										value={values.descricao}
+										onChange={handleChange} onBlur={handleBlur} 
+										error={touched.descricao && errors.descricao}/>
 
-								<Button disabled={isSubmitting} style={{marginTop:'30px'}} type="submit" variant="contained" color="primary">
-									+
-								</Button>
-							</form>
+									<Button fullWidth disabled={isSubmitting} style={{marginTop:'20px', marginBottom:'20px'}} type="submit" variant="contained" color="primary">
+										+
+									</Button>
+								</form>
+							</Container>
 						)
 					}}
-
 				</Formik>
-        </div>
+       	</Container>
     )
 }

@@ -5,7 +5,26 @@ import axiosApi from '../services/api/api'
 import { getNome } from '../services/api/auth'
 import { Link } from 'react-router-dom'
 
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(theme => ({
+	root: {
+		backgroundColor: theme.palette.background.paper,
+		display: 'flex',
+		flexFlow:'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	link: {
+		display:'flex',
+		alignSelf:'center',
+		width:'100%'
+	}
+}))
+
 export default function Alterar(props) {
+	const classes = useStyles()
+
     const formik = useFormik({
 		initialValues: { nome:props.location.nome, descricao: props.location.descricao}
 	})
@@ -29,7 +48,7 @@ export default function Alterar(props) {
 	}
 
     return (
-        <div>
+		<Container component="section" maxWidth="xl" className={classes.root} >
             <Formik initialValues={formik.initialValues}
 					onSubmit={(filtro, { setSubmitting, resetForm }) => {
 						setSubmitting(true)
@@ -42,18 +61,19 @@ export default function Alterar(props) {
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => {
 						return (
 							<form noValidate onSubmit={handleSubmit}>
-								<TextField required autoFocus margin="normal" id="nome"
+								<TextField fullWidth required autoFocus margin="normal" id="nome"
 									label="Nome" name="nome" value={values.nome}
 									onChange={handleChange} onBlur={handleBlur}
 									error={touched.nome && errors.nome} />
 
-								<TextField required id="descricao" margin="normal"
+								<TextField fullWidth required id="descricao" margin="normal"
 									label="Descricao" name="descricao" 
 									value={values.descricao}
 									onChange={handleChange} onBlur={handleBlur} 
                                     error={touched.descricao && errors.descricao}/>
 
-								<Button disabled={isSubmitting} style={{marginTop:'30px'}} type="submit" variant="contained" color="primary">
+
+								<Button fullWidth disabled={isSubmitting} style={{marginTop:'30px'}} type="submit" variant="contained" color="primary">
 									Alterar
 								</Button>
 							</form>
@@ -61,8 +81,14 @@ export default function Alterar(props) {
 					}}
 
 				</Formik>
-
-                <Link to= "/todo" href="#" variant="body2">{"Voltar"}</Link>
-        </div>
+				
+				<div className={classes.link}>
+                	<Link to= "/todo" href="#" variant="body2" style={{textDecoration:'none'}}>
+						<Button variant="contained" color="primary">
+							Voltar
+						</Button>
+					</Link>
+				</div>
+        </Container>
     )
 }
